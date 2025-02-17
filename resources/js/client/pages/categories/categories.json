@@ -1,0 +1,17 @@
+[
+    {
+        "value": 1,
+        "label": "Cosmetics",
+        "name": "Cosmetics"
+    },
+    {
+        "value": 2,
+        "label": "Electronics",
+        "name": "Electronics"
+    },
+    {
+        "value": 3,
+        "label": "Clothes and Fashion",
+        "name": "Clothes and Fashion"
+    }
+]

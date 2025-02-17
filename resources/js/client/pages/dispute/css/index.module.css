@@ -1,0 +1,65 @@
+.heading {
+    margin-top: 2rem;
+}
+
+.messageaction {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px 8px 0px 0px;
+    background-color: #6f3c96;
+    width: 100%;
+}
+
+.messagetext {
+    background-color: #fff;
+    padding: 20px;
+}
+
+.actionProfile {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    color: #fff;
+}
+
+.profileName {
+    padding-top: 0.4em;
+}
+
+.actionBtns {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    color: #fff;
+}
+
+.dateTime {
+    color: #fff;
+}
+
+.disputeBtn {
+    background-color: #6f3c96;
+    color: #fff;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.breakdown {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    text-align: center;
+    padding: 10px;
+    padding-top: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #dfdfdf;
+}
+
+.breakdowntext {
+    font-size: 12px;
+}

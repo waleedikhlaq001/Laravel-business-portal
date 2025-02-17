@@ -1,0 +1,3 @@
+// const PUBLIC_KEY = "FLWPUBK-7a7ede7e61dd67ed26bbb398af684006-X";
+// export const PUBLIC_KEY = "FLWPUBK-7a7ede7e61dd67ed26bbb398af684006-X";
+export const PUBLIC_KEY = "FLWPUBK_TEST-647f6289f74aba024f10cc12f71bd6a2-X";

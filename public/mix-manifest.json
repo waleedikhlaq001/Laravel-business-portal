@@ -1,0 +1,21 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/client/index.js": "/client/index.js",
+    "/client/helper.js": "/client/helper.js",
+    "/client/bootstrap.js": "/client/bootstrap.js",
+    "/client/checkout/index.js": "/client/checkout/index.js",
+    "/client/dispute/index.js": "/client/dispute/index.js",
+    "/client/chat/index.js": "/client/chat/index.js",
+    "/client/plans/index.js": "/client/plans/index.js",
+    "/client/plans/vendor.js": "/client/plans/vendor.js",
+    "/client/milestones/index.js": "/client/milestones/index.js",
+    "/client/video/index.js": "/client/video/index.js",
+    "/client/video/action.js": "/client/video/action.js",
+    "/client/milestones/final.js": "/client/milestones/final.js",
+    "/client/video/accept.js": "/client/video/accept.js",
+    "/client/jobs/index.js": "/client/jobs/index.js",
+    "/client/categories/index.js": "/client/categories/index.js",
+    "/client/mall/index.js": "/client/mall/index.js",
+    "/client/products/index.js": "/client/products/index.js",
+    "/css/app.css": "/css/app.css"
+}

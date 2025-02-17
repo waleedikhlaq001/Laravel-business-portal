@@ -1,0 +1,80 @@
+[
+    {
+        "value": 1,
+        "label": "Cosmetics",
+        "name": "Cosmetics",
+        "count": 252
+    },
+    {
+        "value": 2,
+        "label": "Electronics",
+        "name": "Electronics",
+        "count": 252
+    },
+    {
+        "value": 3,
+        "label": "Clothes and Fashion",
+        "name": "Clothes and Fashion",
+        "count": 252
+    },
+    {
+        "value": 4,
+        "label": "Website, IT & Software",
+        "name": "Website, IT & Software",
+        "count": 252
+    },
+    {
+        "value": 5,
+        "label": "Mobile Phone & Computing",
+        "name": "Mobile Phone & Computing",
+        "count": 145
+    },
+    {
+        "value": 6,
+        "label": "Design, Media & Architecture",
+        "name": "Design, Media & Architecture",
+        "count": 1505
+    },
+    {
+        "value": 7,
+        "label": "Writing & Content",
+        "name": "Writing & Content",
+        "count": 50
+    },
+    {
+        "value": 8,
+        "label": "Data Entry & Admin",
+        "name": "Data Entry & Admin",
+        "count": 252
+    },
+    {
+        "value": 9,
+        "label": "Sales & Marketing",
+        "name": "Sales & Marketing",
+        "count": 55
+    },
+    {
+        "value": 10,
+        "label": "Product Sourcing & Manufacturing",
+        "name": "Product Sourcing & Manufacturing",
+        "count": 102
+    },
+    {
+        "value": 11,
+        "label": "Translation & Languages",
+        "name": "Translation & Languages",
+        "count": 100
+    },
+    {
+        "value": 12,
+        "label": "Engineering & Science",
+        "name": "Engineering & Science",
+        "count": 77
+    },
+    {
+        "value": 13,
+        "label": "Business Services",
+        "name": "Business Services",
+        "count": 502
+    }
+]

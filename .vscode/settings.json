@@ -1,0 +1,8 @@
+{
+    "html.format.endWithNewline": true,
+    "html.format.indentInnerHtml": true,
+    "html.format.templating": true,
+    "prettier.printWidth": 120,
+    "blade.format.enable": true,
+    "svn.ignoreMissingSvnWarning": true
+}

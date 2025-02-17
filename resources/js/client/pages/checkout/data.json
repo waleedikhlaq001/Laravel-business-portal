@@ -1,0 +1,29 @@
+[{
+    "id": "1",
+    "name": "Tiger Nixon",
+    "price": "10",
+    "weight": "100",
+    "vendor": "Продавец 1",
+    "image": "https://via.placeholder.com/250x250/5fa9f8/ffffff",
+    "description": "Batteries for the next level people",
+    "category": "Овощи",
+    "subcategory": "Картофель",
+    "gty": "",
+    "qty_available": "2600"
+},
+
+{
+    "id": "2",
+    "name": "Cart Flex",
+    "price": "1000",
+    "weight": "150",
+    "vendor": "vicomma",
+    "image": "https://via.placeholder.com/250x250/5fa9f8/ffffff",
+    "description": "Картофель в красном соусе",
+    "category": "Овощи",
+    "subcategory": "Картофель",
+    "gty": "",
+    "qty_available": "2600"
+}
+
+]

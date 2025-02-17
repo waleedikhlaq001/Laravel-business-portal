@@ -1,0 +1,27 @@
+.ProductApp {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.productList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.actionBtns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.mainHeading {
+    margin-left: 0.9em;
+    color: #6f3c96;
+}
+
+.paginationAction {
+    margin-top: 4em;
+    justify-content: center;
+}

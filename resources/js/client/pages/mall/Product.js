@@ -1,0 +1,229 @@
+/**
+ * External Dependencies
+ */
+import React, { Fragment, useState } from "react";
+import {
+    Card,
+    Drawer,
+    Image,
+    Text,
+    Badge,
+    Button,
+    Group,
+    useMantineTheme,
+} from "@mantine/core";
+import Rating from "@mui/material/Rating";
+import StarIcon from "@mui/icons-material/Star";
+/**
+ * Internal Dependencies
+ */
+import CartMini from "./minicart";
+const Product = ({ product }) => {
+    const guestCart = [];
+    const {id, name, price, image, description } = product;
+    const format = (num) => new Intl.NumberFormat().format(num)
+    const category = "Clothes";
+
+    const [opened, setOpened] = useState(false); //state of the drawer
+
+    const handleAddToCart = (product) => {
+        //if the product is already in the cart, update the quantity
+        const { id } = product;
+
+        if (!sessionStorage.getItem("cartIdStore")) {
+            sessionStorage.setItem("cartIdStore", JSON.stringify([id]));
+            sessionStorage.setItem("cart", JSON.stringify([product]));
+        } else {
+            if (
+                !JSON.parse(sessionStorage.getItem("cartIdStore")).includes(id)
+            ) {
+                sessionStorage.setItem(
+                    "cart",
+                    JSON.stringify([
+                        ...JSON.parse(sessionStorage.getItem("cart")),
+                        product,
+                    ])
+                );
+
+                sessionStorage.setItem(
+                    "cartIdStore",
+                    JSON.stringify([
+                        ...JSON.parse(sessionStorage.getItem("cartIdStore")),
+                        id,
+                    ])
+                );
+            }
+            // setOpened(true);
+        }
+    };
+    const addtocart = (product) => {
+        const {id} = product;
+        guestCart.push(id);
+        //make a call to the server to add product to session
+        axios.post(`${window.location.origin}/cartsession`, {
+            product_id: id
+        }).then(function(response) {
+            console.log(response.data)
+            const {
+                message,
+                product,
+                cart_count
+            } = response.data;
+            swal({
+                title: "Product Added Successfully!",
+                text: message,
+                icon: "success",
+            });
+            handleAddToCart(product)
+            // document.querySelector('#vicomma-cart-cta').innerHTML = cart_count;
+        })
+    };
+    return (
+        <Fragment>
+            <Drawer
+                position="right"
+                size="35%"
+                hideCloseButton
+                opened={opened}
+                onClose={() => setOpened(false)}
+            >
+                <CartMini />
+            </Drawer>
+
+            <div
+                className="owl-item mx-2 w-100"
+                // style={{ width: "400px", marginRight: "20px" }}
+            >
+                <div>
+                     {/* COMPONENT: PRODUCT CARD */}
+            <article key={name} className="shadow-sm rounded bg-white border border-gray-200">
+            <div className="flex items-center space-x-4 px-2 py-2">
+            <img className="w-10 h-10 rounded-full" src={product && product.vendor && product.vendor.user? product.vendor.user.image : ""} alt="" />
+            <div className="font-medium dark:text-white">
+            <a href={"/mall/show/" + product.id} className="block text-gray-600 hover:text-blue-500">
+                <Text
+                        weight={'bold'}
+                        style={{ overflow: "hidden", textOverflow: "ellipsis" }}
+                    >
+                        {product.vendor? product.vendor.vendor_station : ""}
+                    </Text>
+                </a>
+                <div className="text-sm text-gray-500 dark:text-gray-400">{moment(product.created_at).fromNow()}</div>
+            </div>
+            </div>
+
+              <a href="#" className="block relative p-1" style={{
+                  width: "",
+                  height: "200px",
+                  backgroundImage: image && JSON.parse(image)[0]? "https://viccomma-videos.s3.us-east-2.amazonaws.com/product-images/" + JSON.parse(image)[0] :
+                  "/img/empty.png",
+                  backgroundPosition: "center",
+                  background:  `url(${image && JSON.parse(image)[0]? "https://viccomma-videos.s3.us-east-2.amazonaws.com/product-images/" + JSON.parse(image)[0] :
+                  "/img/empty.png"}) center`,
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat"
+              }}>
+            
+              </a>
+              <div className="p-4 border-t border-t-gray-200">
+              <span class="bg-green-100 mb-2 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">{product.category.name}</span>
+                <h4 className="font-semibold mt-2">${format(price)}</h4>
+                <a href={"/mall/show/" + product.id} className="block text-gray-600 mb-2 mt-2 hover:text-blue-500">
+                <Text
+                        weight={500}
+                        style={{ overflow: "hidden", textOverflow: "ellipsis" }}
+                    >
+                        {name}
+                    </Text>
+                </a>
+                <Rating
+                            name="disabled"
+                            value={3}
+                            size="large"
+                            disabled
+                            emptyIcon={<StarIcon fontSize="inherit" />}
+                        />
+                <div className="mt-3" style={{display: "flex"}}>
+                  <button style={{backgroundColor: "#6f3c96"}} onClick={() => addtocart(product)} className="px-4 py-2 inline-block text-white text-center bg-indigo-600 border border-transparent rounded-md hover:bg-blue-700">
+                    Bag it
+                  </button>
+                  <a className="px-4 py-2 mx-2 inline-block text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100" href={"/mall/show/" + product.id}>
+                <i style={{color: "#6f3c96"}} className="fa fa-eye" />
+                </a>
+
+                </div>
+              </div>
+            </article>
+            {/* COMPONENT: PRODUCT CARD //END */}
+                </div>
+
+                {/* <div className="item product p-2">
+                    <div className="product-img">
+                        <img
+                            style={{ display: "block", width: "100%" }}
+                            src={
+                                image ||
+                                "https://vicomma-stagingrevamp.herokuapp.com/img/product.png"
+                            }
+                            alt=""
+                        />
+                        <div className="view-product">
+                            <a
+                                href={"/mall/show/"+id}
+                                className="btn btn-primary btn-block rounded-0 btn-sm"
+                            >
+                                {" "}
+                                <i
+                                    className="fa fa-eye"
+                                    aria-hidden="true"
+                                ></i>{" "}
+                                View Product
+                            </a>
+                        </div>
+                    </div>
+                    <div className="product-content text-center mt-3">
+                        <small className="text-uppercase text-muted">
+                            {category}
+                        </small>
+                        <h6 className="text-uppercase font-weight-normal text-snd mt-3">
+                            {name}
+                        </h6>
+                        <Rating
+                            name="disabled"
+                            value={3}
+                            size="large"
+                            disabled
+                            emptyIcon={<StarIcon fontSize="inherit" />}
+                        />
+                        <h6 className="mt-2 font-weight-light">{price}</h6>
+                        <div className="add-cart">
+                            <a
+                                className="btn btn-secondary text-uppercase btn-sm rounded-0"
+                                onClick={() => handleAddToCart(product)}
+                            >
+                                <span className="cart-icon">
+                                    <svg
+                                        className="mr-1"
+                                        width="22"
+                                        height="22"
+                                        viewBox="0 0 26 26"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M25.0127 6.25969C24.9228 6.1491 24.8094 6.05995 24.6807 5.99872C24.552 5.93748 24.4112 5.9057 24.2687 5.90569H6.89871L6.82771 5.25169V5.23069C6.65936 3.9727 6.04073 2.81837 5.08644 1.98158C4.13216 1.14479 2.90691 0.68226 1.63771 0.679688C1.38337 0.679688 1.13944 0.780725 0.959596 0.960572C0.779748 1.14042 0.678711 1.38434 0.678711 1.63869C0.678711 1.89303 0.779748 2.13696 0.959596 2.3168C1.13944 2.49665 1.38337 2.59769 1.63771 2.59769C2.43974 2.59968 3.21401 2.89159 3.81772 3.41959C4.42144 3.94759 4.81389 4.67607 4.92271 5.47069L6.06271 15.9427C5.55881 16.171 5.13129 16.5396 4.83125 17.0044C4.53121 17.4691 4.37133 18.0105 4.37071 18.5637C4.37071 18.5717 4.37071 18.5797 4.37071 18.5877C4.37071 18.5957 4.37071 18.6037 4.37071 18.6117C4.37151 19.3745 4.67487 20.1058 5.21424 20.6452C5.75361 21.1845 6.48493 21.4879 7.24771 21.4887H7.63771C7.493 21.9144 7.45186 22.3685 7.51771 22.8134C7.58355 23.2582 7.75449 23.6809 8.01634 24.0465C8.27819 24.412 8.62341 24.7099 9.02338 24.9154C9.42335 25.1209 9.86654 25.2281 10.3162 25.2281C10.7659 25.2281 11.2091 25.1209 11.609 24.9154C12.009 24.7099 12.3542 24.412 12.6161 24.0465C12.8779 23.6809 13.0489 23.2582 13.1147 22.8134C13.1806 22.3685 13.1394 21.9144 12.9947 21.4887H17.1317C16.9388 22.0559 16.9309 22.6697 17.1092 23.2416C17.2875 23.8136 17.6428 24.3141 18.1238 24.6712C18.6048 25.0283 19.1868 25.2235 19.7859 25.2286C20.385 25.2337 20.9702 25.0485 21.4573 24.6996C21.9443 24.3508 22.3081 23.8564 22.4961 23.2875C22.6841 22.7187 22.6867 22.1049 22.5035 21.5345C22.3202 20.9641 21.9607 20.4666 21.4766 20.1137C20.9925 19.7607 20.4088 19.5706 19.8097 19.5707H7.24771C6.99345 19.5704 6.74968 19.4693 6.56989 19.2895C6.3901 19.1097 6.28898 18.8659 6.28871 18.6117C6.28871 18.6037 6.28871 18.5957 6.28871 18.5877C6.28871 18.5797 6.28871 18.5717 6.28871 18.5637C6.28898 18.3094 6.3901 18.0657 6.56989 17.8859C6.74968 17.7061 6.99345 17.605 7.24771 17.6047H19.4897C20.3419 17.592 21.172 17.3316 21.8788 16.8551C22.5855 16.3787 23.1383 15.7069 23.4697 14.9217C23.5225 14.8061 23.5517 14.6811 23.5557 14.5541C23.5598 14.4271 23.5385 14.3005 23.4932 14.1818C23.4479 14.063 23.3794 13.9545 23.2918 13.8624C23.2042 13.7704 23.0991 13.6967 22.9827 13.6456C22.8664 13.5945 22.741 13.567 22.614 13.5648C22.4869 13.5626 22.3606 13.5857 22.2426 13.6327C22.1245 13.6797 22.0169 13.7497 21.9261 13.8386C21.8353 13.9275 21.7631 14.0336 21.7137 14.1507C21.5285 14.5924 21.2206 14.9719 20.8264 15.2441C20.4323 15.5163 19.9684 15.6699 19.4897 15.6867H7.96371L7.10771 7.82369H23.0887L22.6197 10.0727C22.5907 10.1971 22.5869 10.3261 22.6085 10.4521C22.6301 10.578 22.6766 10.6984 22.7453 10.8061C22.8141 10.9138 22.9037 11.0067 23.0088 11.0793C23.114 11.152 23.2326 11.2028 23.3577 11.2289C23.4828 11.2551 23.6118 11.2559 23.7372 11.2315C23.8627 11.207 23.9819 11.1577 24.088 11.0865C24.1942 11.0154 24.285 10.9237 24.3552 10.8169C24.4253 10.7101 24.4735 10.5903 24.4967 10.4647L25.2067 7.06469C25.2366 6.92454 25.2346 6.77948 25.2011 6.64017C25.1675 6.50086 25.1031 6.37085 25.0127 6.25969ZM19.8127 21.4887C19.9929 21.4887 20.169 21.5421 20.3188 21.6422C20.4686 21.7423 20.5854 21.8846 20.6544 22.0511C20.7233 22.2175 20.7414 22.4007 20.7062 22.5774C20.6711 22.7541 20.5843 22.9165 20.4569 23.0439C20.3295 23.1713 20.1672 23.258 19.9904 23.2932C19.8137 23.3283 19.6306 23.3103 19.4641 23.2413C19.2976 23.1724 19.1553 23.0556 19.0552 22.9058C18.9551 22.756 18.9017 22.5799 18.9017 22.3997C18.902 22.1587 18.9976 21.9276 19.1678 21.7569C19.3379 21.5862 19.5687 21.4897 19.8097 21.4887H19.8127ZM10.3197 21.4887C10.4999 21.4887 10.676 21.5421 10.8258 21.6422C10.9756 21.7423 11.0924 21.8846 11.1614 22.0511C11.2303 22.2175 11.2484 22.4007 11.2132 22.5774C11.1781 22.7541 11.0913 22.9165 10.9639 23.0439C10.8365 23.1713 10.6742 23.258 10.4974 23.2932C10.3207 23.3283 10.1376 23.3103 9.97109 23.2413C9.80462 23.1724 9.66234 23.0556 9.56224 22.9058C9.46214 22.756 9.40871 22.5799 9.40871 22.3997C9.40897 22.1588 9.50449 21.9279 9.67441 21.7572C9.84434 21.5865 10.0749 21.49 10.3157 21.4887H10.3197Z"
+                                            fill="#fff"
+                                        ></path>
+                                    </svg>
+                                </span>
+                                Add to cart
+                            </a>
+                        </div>
+                    </div>
+                </div> */}
+            </div>
+        </Fragment>
+    );
+};
+
+export default Product;
